@@ -45,4 +45,22 @@ public class Steps {
         Response response = given().spec(BaseHttpClient.baseRequestSpec()).and().body(dataForTests.loginWithCorrectData).when().post(path.getBasePathLoginUser());
         return response;
     }
+
+    @Step("Login to the system with wrong email")
+    public Response loginToTheSystemWithWrongEmail(){
+        Response response = given().spec(BaseHttpClient.baseRequestSpec()).and().body(dataForTests.loginWithWrongEmail).when().post(path.getBasePathLoginUser());
+        return response;
+    }
+
+    @Step("Login to the system with wrong password")
+    public Response loginToTheSystemWithWrongPassword(){
+        Response response = given().spec(BaseHttpClient.baseRequestSpec()).and().body(dataForTests.loginWithWrongPassword).when().post(path.getBasePathLoginUser());
+        return response;
+    }
+
+    @Step("Login to the system with wrong email and password")
+    public Response loginToTheSystemWithWrongData(){
+        Response response = given().spec(BaseHttpClient.baseRequestSpec()).and().body(dataForTests.loginWithWrongCredentials).when().post(path.getBasePathLoginUser());
+        return response;
+    }
 }

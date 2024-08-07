@@ -5,36 +5,48 @@ import org.junit.After;
 import org.junit.Test;
 
 public class TestLoginUser {
-    ResponseMessage responseMessage = new ResponseMessage();
-    ResponseCode responseCode = new ResponseCode();
     Steps steps = new Steps();
+    ResponseCode responseCode = new ResponseCode();
+    ResponseMessage responseMessage = new ResponseMessage();
 
     @Test
-    @DisplayName("Registration of the new user")
-    @Description("Testing the registration of the new user - smoke test")
-    public void testUserRegistration() {
+    @DisplayName("Successful login")
+    @Description("Login with correct credentials")
+    public void testSuccessfulLogin(){
         Response response = steps.registerNewUser();
-        steps.printResponseBodyToConsole(response);
-        steps.checkResponse(response, responseCode.getSuccessfulCode(), responseMessage.getTrueUserRegistration());
+        Response loginResponse = steps.loginToTheSystem();
+        steps.printResponseBodyToConsole(loginResponse);
+        steps.checkResponse(loginResponse,responseCode.getSuccessfulCode(), responseMessage.getTrueUserRegistration());
     }
 
     @Test
-    @DisplayName("Registration of already exist user")
-    @Description("Testing registration of the user which is already exist")
-    public void testExistUserRegistration(){
+    @DisplayName("Unsuccessful login")
+    @Description("Login with wrong email")
+    public void testLoginWithWrongEmail(){
         Response response = steps.registerNewUser();
-        Response registrationWithTheSameData = steps.registerNewUser();
-        steps.printResponseBodyToConsole(registrationWithTheSameData);
-        steps.checkResponseWrongRegistration(registrationWithTheSameData, responseCode.getForbiddenCode(), responseMessage.getUserAlreadyExistMessage());
+        Response loginResponse = steps.loginToTheSystemWithWrongEmail();
+        steps.printResponseBodyToConsole(loginResponse);
+        steps.checkResponseWrongRegistration(loginResponse, responseCode.getUnauthorizedCode(), responseMessage.getEmailPasswordIncorrect());
     }
 
     @Test
-    @DisplayName("Registration of the user with missing data")
-    @Description("Some fields are empty during registration")
-    public void testRegistrationWithMissingData(){
-        Response response = steps.wrongRegistration();
-        steps.printResponseBodyToConsole(response);
-        steps.checkResponseWrongRegistration(response, responseCode.getForbiddenCode(), responseMessage.getNotEnoughData());
+    @DisplayName("Unsuccessful login")
+    @Description("Login with wrong password")
+    public void testLoginWithWrongPassword(){
+        Response response = steps.registerNewUser();
+        Response loginResponse = steps.loginToTheSystemWithWrongPassword();
+        steps.printResponseBodyToConsole(loginResponse);
+        steps.checkResponseWrongRegistration(loginResponse, responseCode.getUnauthorizedCode(), responseMessage.getEmailPasswordIncorrect());
+    }
+
+    @Test
+    @DisplayName("Unsuccessful login")
+    @Description("Login with wrong credentials")
+    public void testLoginWithWrongCredentials(){
+        Response response = steps.registerNewUser();
+        Response loginResponse = steps.loginToTheSystemWithWrongData();
+        steps.printResponseBodyToConsole(loginResponse);
+        steps.checkResponseWrongRegistration(loginResponse, responseCode.getUnauthorizedCode(), responseMessage.getEmailPasswordIncorrect());
     }
 
     @After

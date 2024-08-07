@@ -2,6 +2,7 @@ public class ResponseMessage {
     private static final Boolean TRUECREATIONOFTHEUSER = true;
     private static final String USERALREDYEXIST = "User already exists";
     private static final String NOTENOUGHDATA = "Email, password and name are required fields";
+    private static final String EMAILPASSWORDINCORRECT = "email or password are incorrect";
 
     public Boolean getTrueUserRegistration(){
         return TRUECREATIONOFTHEUSER;
@@ -11,5 +12,8 @@ public class ResponseMessage {
     }
     public String getNotEnoughData(){
         return NOTENOUGHDATA;
+    }
+    public String getEmailPasswordIncorrect(){
+        return EMAILPASSWORDINCORRECT;
     }
 }
