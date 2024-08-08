@@ -1,3 +1,5 @@
+import java.security.PublicKey;
+
 public class UserData {
     private String email;
     private String password;
@@ -10,6 +12,8 @@ public class UserData {
     }
 
     public UserData(){}
+
+    public UserData(String name){this.name=name;}
 
     public String getPassword() {
         return password;

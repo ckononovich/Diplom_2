@@ -56,7 +56,7 @@ public class TestLoginUser {
             System.out.println(response);
             String token = response.getBody().path("accessToken").toString();
             System.out.println(token);
-            Response deleteUser = steps.deleteCreatedUser(token);
+            Response deleteUser = steps.deleteUser(token);
         } catch (Exception exception) {
             System.out.println("Nothing to delete");
         }

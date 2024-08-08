@@ -8,9 +8,11 @@ public class BaseHttpClient {
                 .setRelaxedHTTPSValidation()
                 .build();
     }
+
     public static RequestSpecification baseRequestSpecWithToken(String token) {
         return new RequestSpecBuilder().setBaseUri(Url.HOST)
                 .addHeader("Authorization", token)
+                .addHeader("Content-type", "application/json")
                 .setRelaxedHTTPSValidation()
                 .build();
     }
