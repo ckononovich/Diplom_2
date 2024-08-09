@@ -15,7 +15,7 @@ public class TestRegistrationUser {
     public void testUserRegistration() {
         Response response = steps.registerNewUser();
         steps.printResponseBodyToConsole(response);
-        steps.checkResponse(response, responseCode.getSuccessfulCode(), responseMessage.getTrueUserRegistration());
+        steps.checkResponse(response, responseCode.getSuccessfulCode(), responseMessage.getTrueResponse());
     }
 
     @Test
@@ -25,7 +25,7 @@ public class TestRegistrationUser {
         Response response = steps.registerNewUser();
         Response registrationWithTheSameData = steps.registerNewUser();
         steps.printResponseBodyToConsole(registrationWithTheSameData);
-        steps.checkResponseWrongRegistration(registrationWithTheSameData, responseCode.getForbiddenCode(), responseMessage.getUserAlreadyExistMessage());
+        steps.checkResponseOtherData(registrationWithTheSameData, responseCode.getForbiddenCode(), responseMessage.getUserAlreadyExistMessage());
     }
 
     @Test
@@ -34,7 +34,7 @@ public class TestRegistrationUser {
     public void testRegistrationWithMissingData(){
         Response response = steps.wrongRegistration();
         steps.printResponseBodyToConsole(response);
-        steps.checkResponseWrongRegistration(response, responseCode.getForbiddenCode(), responseMessage.getNotEnoughData());
+        steps.checkResponseOtherData(response, responseCode.getForbiddenCode(), responseMessage.getNotEnoughData());
     }
 
     @After

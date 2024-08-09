@@ -17,7 +17,7 @@ public class TestChangingUserData {
         String token = registerUser.getBody().path("accessToken").toString();
         Response response = steps.changeUserEmail(token);
         steps.printResponseBodyToConsole(response);
-        steps.checkResponse(response,responseCode.getSuccessfulCode(),responseMessage.getTrueUserRegistration());
+        steps.checkResponse(response,responseCode.getSuccessfulCode(),responseMessage.getTrueResponse());
         Response changeBack = steps.changeDataBack(token);
         steps.printResponseBodyToConsole(changeBack);
     }
@@ -29,7 +29,7 @@ public class TestChangingUserData {
         Response registerUser = steps.registerNewUser();
         Response response = steps.changeUserDataNoAuthorisation();
         steps.printResponseBodyToConsole(response);
-        steps.checkResponseWrongRegistration(response,responseCode.getUnauthorizedCode(), responseMessage.getEditUserProfileNoAuthorisation());
+        steps.checkResponseOtherData(response,responseCode.getUnauthorizedCode(), responseMessage.getNoAuthorisation());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class TestChangingUserData {
         String token = registerUser.getBody().path("accessToken").toString();
         Response response = steps.changeUserName(token);
         steps.printResponseBodyToConsole(response);
-        steps.checkResponse(response,responseCode.getSuccessfulCode(),responseMessage.getTrueUserRegistration());
+        steps.checkResponse(response,responseCode.getSuccessfulCode(),responseMessage.getTrueResponse());
     }
 
     @Test
@@ -51,7 +51,7 @@ public class TestChangingUserData {
         String token = registerUser.getBody().path("accessToken").toString();
         Response response = steps.changeUserAllData(token);
         steps.printResponseBodyToConsole(response);
-        steps.checkResponse(response,responseCode.getSuccessfulCode(),responseMessage.getTrueUserRegistration());
+        steps.checkResponse(response,responseCode.getSuccessfulCode(),responseMessage.getTrueResponse());
         Response changeBack = steps.changeDataBack(token);
         steps.printResponseBodyToConsole(changeBack);
     }

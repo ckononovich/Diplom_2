@@ -16,7 +16,7 @@ public class TestLoginUser {
         Response response = steps.registerNewUser();
         Response loginResponse = steps.loginToTheSystem();
         steps.printResponseBodyToConsole(loginResponse);
-        steps.checkResponse(loginResponse,responseCode.getSuccessfulCode(), responseMessage.getTrueUserRegistration());
+        steps.checkResponse(loginResponse,responseCode.getSuccessfulCode(), responseMessage.getTrueResponse());
     }
 
     @Test
@@ -26,7 +26,7 @@ public class TestLoginUser {
         Response response = steps.registerNewUser();
         Response loginResponse = steps.loginToTheSystemWithWrongEmail();
         steps.printResponseBodyToConsole(loginResponse);
-        steps.checkResponseWrongRegistration(loginResponse, responseCode.getUnauthorizedCode(), responseMessage.getEmailPasswordIncorrect());
+        steps.checkResponseOtherData(loginResponse, responseCode.getUnauthorizedCode(), responseMessage.getEmailPasswordIncorrect());
     }
 
     @Test
@@ -36,7 +36,7 @@ public class TestLoginUser {
         Response response = steps.registerNewUser();
         Response loginResponse = steps.loginToTheSystemWithWrongPassword();
         steps.printResponseBodyToConsole(loginResponse);
-        steps.checkResponseWrongRegistration(loginResponse, responseCode.getUnauthorizedCode(), responseMessage.getEmailPasswordIncorrect());
+        steps.checkResponseOtherData(loginResponse, responseCode.getUnauthorizedCode(), responseMessage.getEmailPasswordIncorrect());
     }
 
     @Test
@@ -46,7 +46,7 @@ public class TestLoginUser {
         Response response = steps.registerNewUser();
         Response loginResponse = steps.loginToTheSystemWithWrongData();
         steps.printResponseBodyToConsole(loginResponse);
-        steps.checkResponseWrongRegistration(loginResponse, responseCode.getUnauthorizedCode(), responseMessage.getEmailPasswordIncorrect());
+        steps.checkResponseOtherData(loginResponse, responseCode.getUnauthorizedCode(), responseMessage.getEmailPasswordIncorrect());
     }
 
     @After

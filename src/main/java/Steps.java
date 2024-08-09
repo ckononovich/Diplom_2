@@ -1,6 +1,8 @@
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
+import java.util.ArrayList;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
 
@@ -30,9 +32,14 @@ public class Steps {
         response.then().statusCode(code).and().assertThat().body("success", equalTo(message));
     }
 
-    @Step("Check response from the servet for already exist user")
-    public void checkResponseWrongRegistration(Response response, int code, String message){
+    @Step("Check response from the server")
+    public void checkResponseOtherData(Response response, int code, String message){
         response.then().statusCode(code).and().assertThat().body("message", equalTo(message));
+    }
+
+    @Step("Check response from the server")
+    public void checkStatusCode(Response response, int code){
+        response.then().statusCode(code);
     }
 
     @Step("Delete the created user")
@@ -109,13 +116,42 @@ public class Steps {
 
     @Step("Get ingredients")
     public Response getIngredients() {
-        Response response = given().spec(BaseHttpClient.baseRequestSpec()).get(path.getBasePathUser());
+        Response response = given().spec(BaseHttpClient.baseRequestSpec()).get(path.getBasePathGetIngredients());
         return response;
     }
 
     @Step("Create order with authorisation")
     public Response createOrderWithAuthorisation(String token){
-        Response response = given().spec(BaseHttpClient.baseRequestSpecWithToken(token)).and().body(dataForTests.loginWithWrongCredentials).when().post(path.getBasePathLoginUser());
+        Response response = given().spec(BaseHttpClient.baseRequestSpecWithToken(token)).and().body(dataForTests.addingIngredients).when().post(path.getBasePathCreateOrder());
+        return response;
+    }
+
+    @Step("Create order without authorisation")
+    public Response createOrderWithoutAuthorisation(){
+        Response response = given().spec(BaseHttpClient.baseRequestSpec()).and().body(dataForTests.addingIngredients).when().post(path.getBasePathCreateOrder());
+        return response;
+    }
+
+    @Step("Create order without ingredients")
+    public Response createOrderWithoutIngredients(String token){
+        Response response = given().spec(BaseHttpClient.baseRequestSpecWithToken(token)).and().body(dataForTests.withoutIngredients).when().post(path.getBasePathCreateOrder());
+        return response;
+    }
+    @Step("Create order with wrong hash of ingredients")
+    public Response createOrderWrongHashIngredients(String token){
+        Response response = given().spec(BaseHttpClient.baseRequestSpecWithToken(token)).and().body(dataForTests.withWrongHashIngredients).when().post(path.getBasePathCreateOrder());
+        return response;
+    }
+
+    @Step("Get orders")
+    public Response getOrdersWithAuthorisation(String token) {
+        Response response = given().spec(BaseHttpClient.baseRequestSpecWithToken(token)).get(path.getBasePathCreateOrder());
+        return response;
+    }
+
+    @Step("Get orders")
+    public Response getOrdersWithoutAuthorisation() {
+        Response response = given().spec(BaseHttpClient.baseRequestSpec()).get(path.getBasePathCreateOrder());
         return response;
     }
 }

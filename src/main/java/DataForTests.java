@@ -7,6 +7,8 @@ public class DataForTests {
     private final String wrongPassword = "555588888";
     private final String userName = "5555Test";
     private final String newUserName = "Test2233";
+    private final String ingredients = "61c0c5a71d1f82001bdaaa6d";
+    private final String wrongHashIngredients = "61c0c5a71d1f82001bdaaa6";
     UserData createUserWithCorrectData = new UserData(email, password,userName);
     UserData createUserWithWrongData = new UserData(email, password,"");
     UserData changeUserDataEmail = new UserData (newEmail, "","");
@@ -16,4 +18,7 @@ public class DataForTests {
     LoginUser loginWithWrongEmail = new LoginUser(wrongEmail, password);
     LoginUser loginWithWrongPassword = new LoginUser(email,wrongPassword);
     LoginUser loginWithWrongCredentials = new LoginUser(wrongEmail,wrongPassword);
+    Order addingIngredients = new Order(ingredients);
+    Order withoutIngredients = new Order();
+    Order withWrongHashIngredients = new Order(wrongHashIngredients);
 }
