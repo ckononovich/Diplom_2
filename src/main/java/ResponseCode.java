@@ -5,19 +5,23 @@ public class ResponseCode {
     private static final int BADREQUEST = 400;
     private static final int INTERNALSERVERERROR = 500;
 
-    public int getSuccessfulCode (){
+    public int getSuccessfulCode() {
         return SUCCESSFULCODE;
     }
-    public int getForbiddenCode (){
+
+    public int getForbiddenCode() {
         return FORBIDDENCODE;
     }
-    public int getUnauthorizedCode(){
+
+    public int getUnauthorizedCode() {
         return UNAUTHORIZEDCODE;
     }
-    public int getBadRequestCode(){
+
+    public int getBadRequestCode() {
         return BADREQUEST;
     }
-    public int getInternalServerError(){
+
+    public int getInternalServerError() {
         return INTERNALSERVERERROR;
     }
 }

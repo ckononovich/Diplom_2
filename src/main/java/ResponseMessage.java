@@ -3,25 +3,30 @@ public class ResponseMessage {
     private static final String USERALREDYEXIST = "User already exists";
     private static final String NOTENOUGHDATA = "Email, password and name are required fields";
     private static final String EMAILPASSWORDINCORRECT = "email or password are incorrect";
-    private static final String NOAUTHORISATION ="You should be authorised";
-    private static final String NOINGREDIENTS ="Ingredient ids must be provided";
+    private static final String NOAUTHORISATION = "You should be authorised";
+    private static final String NOINGREDIENTS = "Ingredient ids must be provided";
 
-    public Boolean getTrueResponse(){
+    public Boolean getTrueResponse() {
         return TRUERESPOSE;
     }
-    public String getUserAlreadyExistMessage(){
+
+    public String getUserAlreadyExistMessage() {
         return USERALREDYEXIST;
     }
-    public String getNotEnoughData(){
+
+    public String getNotEnoughData() {
         return NOTENOUGHDATA;
     }
-    public String getEmailPasswordIncorrect(){
+
+    public String getEmailPasswordIncorrect() {
         return EMAILPASSWORDINCORRECT;
     }
-    public String getNoAuthorisation(){
+
+    public String getNoAuthorisation() {
         return NOAUTHORISATION;
     }
-    public String getNoIngredients(){
+
+    public String getNoIngredients() {
         return NOINGREDIENTS;
     }
 }
