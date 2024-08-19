@@ -1,13 +1,12 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
-import org.junit.After;
 import org.junit.Test;
 
-public class TestGettingUsersOrders {
-    ResponseCode responseCode = new ResponseCode();
-    ResponseMessage responseMessage = new ResponseMessage();
-    Steps steps = new Steps();
+public class TestGettingUsersOrders extends BaseTest {
+    private final ResponseCode responseCode = new ResponseCode();
+    private final ResponseMessage responseMessage = new ResponseMessage();
+    private final Steps steps = new Steps();
 
     @Test
     @DisplayName("Get orders by authorised user")
@@ -31,18 +30,5 @@ public class TestGettingUsersOrders {
         Response response = steps.getOrdersWithoutAuthorisation();
         steps.printResponseBodyToConsole(response);
         steps.checkResponseOtherData(response, responseCode.getUnauthorizedCode(), responseMessage.getNoAuthorisation());
-    }
-
-    @After
-    public void deleteCreatedUser() {
-        try {
-            Response response = steps.loginToTheSystem();
-            System.out.println(response);
-            String token = response.getBody().path("accessToken").toString();
-            System.out.println(token);
-            Response deleteUser = steps.deleteUser(token);
-        } catch (Exception exception) {
-            System.out.println("Nothing to delete");
-        }
     }
 }

@@ -1,13 +1,12 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
-import org.junit.After;
 import org.junit.Test;
 
-public class TestLoginUser {
-    Steps steps = new Steps();
-    ResponseCode responseCode = new ResponseCode();
-    ResponseMessage responseMessage = new ResponseMessage();
+public class TestLoginUser extends BaseTest {
+    private final Steps steps = new Steps();
+    private final ResponseCode responseCode = new ResponseCode();
+    private final ResponseMessage responseMessage = new ResponseMessage();
 
     @Test
     @DisplayName("Successful login")
@@ -47,18 +46,5 @@ public class TestLoginUser {
         Response loginResponse = steps.loginToTheSystemWithWrongData();
         steps.printResponseBodyToConsole(loginResponse);
         steps.checkResponseOtherData(loginResponse, responseCode.getUnauthorizedCode(), responseMessage.getEmailPasswordIncorrect());
-    }
-
-    @After
-    public void deleteCreatedUser() {
-        try {
-            Response response = steps.loginToTheSystem();
-            System.out.println(response);
-            String token = response.getBody().path("accessToken").toString();
-            System.out.println(token);
-            Response deleteUser = steps.deleteUser(token);
-        } catch (Exception exception) {
-            System.out.println("Nothing to delete");
-        }
     }
 }

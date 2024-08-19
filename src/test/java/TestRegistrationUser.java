@@ -1,13 +1,12 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
-import org.junit.After;
 import org.junit.Test;
 
-public class TestRegistrationUser {
-    ResponseMessage responseMessage = new ResponseMessage();
-    ResponseCode responseCode = new ResponseCode();
-    Steps steps = new Steps();
+public class TestRegistrationUser extends BaseTest {
+    private final ResponseMessage responseMessage = new ResponseMessage();
+    private final ResponseCode responseCode = new ResponseCode();
+    private final Steps steps = new Steps();
 
     @Test
     @DisplayName("Registration of the new user")
@@ -35,18 +34,5 @@ public class TestRegistrationUser {
         Response response = steps.wrongRegistration();
         steps.printResponseBodyToConsole(response);
         steps.checkResponseOtherData(response, responseCode.getForbiddenCode(), responseMessage.getNotEnoughData());
-    }
-
-    @After
-    public void deleteCreatedUser() {
-        try {
-            Response response = steps.loginToTheSystem();
-            System.out.println(response);
-            String token = response.getBody().path("accessToken").toString();
-            System.out.println(token);
-            Response deleteUser = steps.deleteUser(token);
-        } catch (Exception exception) {
-            System.out.println("Nothing to delete");
-        }
     }
 }

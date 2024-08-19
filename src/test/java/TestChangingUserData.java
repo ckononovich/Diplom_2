@@ -1,13 +1,12 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
-import org.junit.After;
 import org.junit.Test;
 
-public class TestChangingUserData {
-    Steps steps = new Steps();
-    ResponseMessage responseMessage = new ResponseMessage();
-    ResponseCode responseCode = new ResponseCode();
+public class TestChangingUserData extends BaseTest {
+    private final Steps steps = new Steps();
+    private final ResponseMessage responseMessage = new ResponseMessage();
+    private final ResponseCode responseCode = new ResponseCode();
 
     @Test
     @DisplayName("Change email")
@@ -98,18 +97,5 @@ public class TestChangingUserData {
         Response response = steps.changeAllDataNoAuthorisation();
         steps.printResponseBodyToConsole(response);
         steps.checkResponseOtherData(response, responseCode.getUnauthorizedCode(), responseMessage.getNoAuthorisation());
-    }
-
-    @After
-    public void deleteCreatedUser() {
-        try {
-            Response response = steps.loginToTheSystem();
-            System.out.println(response);
-            String token = response.getBody().path("accessToken").toString();
-            System.out.println(token);
-            Response deleteUser = steps.deleteUser(token);
-        } catch (Exception exception) {
-            System.out.println("Nothing to delete");
-        }
     }
 }
